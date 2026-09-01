@@ -1,0 +1,40 @@
+name: Actualizar precio del gasoil
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: actualizar-precio
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Leer el precio y escribir datos.json
+        run: python scraper.py
+
+      - name: Publicar cambios (solo si el precio ha variado)
+        run: |
+          if [ -n "$(git status --porcelain datos.json)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add datos.json
+            git commit -m "Actualiza precio del gasoil ($(date -u +%F))"
+            git push
+          else
+            echo "Sin cambios en el precio."
+          fi
