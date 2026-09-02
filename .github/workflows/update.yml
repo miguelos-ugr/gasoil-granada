@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Descargar el repositorio
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Preparar Python
         uses: actions/setup-python@v5
@@ -34,7 +36,10 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add datos.json
             git commit -m "Actualiza precio del gasoil ($(date -u +%F))"
-            git push
+            for intento in 1 2 3; do
+              git pull --rebase --autostash origin main && git push origin main && break
+              echo "Push rechazado, reintento $intento..."; sleep 3
+            done
           else
             echo "Sin cambios en el precio."
           fi
