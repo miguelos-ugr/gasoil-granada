@@ -1,8 +1,8 @@
 {
-  "andalucia": 1.686,
-  "nacional": 1.669,
-  "delta_mes_ct": -8.7,
-  "actualizado": "2026-11-26",
+  "andalucia": 1.685,
+  "nacional": 1.666,
+  "delta_mes_ct": -0.2,
+  "actualizado": "2026-11-27",
   "serie": [
     [
       "Dic 24",
@@ -98,14 +98,14 @@
     ],
     [
       "Nov 26",
-      1.686
+      1.685
     ]
   ],
   "granada": {
-    "precio": 1.659,
-    "min": 1.517,
-    "max": 1.756
+    "precio": 1.657,
+    "min": 1.505,
+    "max": 1.745
   },
-  "generado": "2026-11-26T15:55:27+00:00",
+  "generado": "2026-11-27T15:44:11+00:00",
   "fuente": "https://calienteybarato.com/precio-gasoil-calefaccion/provincia/granada/"
 }
